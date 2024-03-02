@@ -1,3 +1,4 @@
+import { useRef } from 'react';
 import {} from './App.css'
 import {actions, useStore} from './store';
 
@@ -9,17 +10,24 @@ function App() {
 
   const {job, jobs} = state
 
+  const inputRef = useRef()
+
+  const handleAdd = ()=> {
+    dispatch(actions.addJob())
+    inputRef.current.focus()
+  }
 
   return (
     <div className="App m-5">
       <h1>TODO APP</h1>
 
       <input
+        ref={ inputRef }
         value={job}
         onChange={e => dispatch(actions.setJob(e.target.value))}></input>
       
       <button className="btn btn-outline-success m-2"
-        onClick={()=> dispatch(actions.addJob())}
+        onClick={handleAdd}
         >Add</button>
 
       <div className='m-5'>
